@@ -1,4 +1,4 @@
-package org.example.entidades;
+package org.example.TP1.entidades;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,11 +1,11 @@
-package org.example.database;
+package org.example.TP1.database;
 import java.sql.*;
 import java.sql.Connection;
 
 public class DataBase {
     public static void main(String[] args){
         String url = "jdbc:postgres://localhost:5432/db_tp1";
-        String user = "db_tp1";
+        String user = "root";
         String password = "password";
 
         try{
