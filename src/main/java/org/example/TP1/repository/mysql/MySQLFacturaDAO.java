@@ -1,5 +1,6 @@
 package org.example.TP1.repository.mysql;
 
+import org.example.TP1.dao.FacturaDAO;
 import org.example.TP1.entidades.Factura;
 
 import java.sql.Connection;
@@ -9,14 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLFacturaDAO {
+public class MySQLFacturaDAO implements FacturaDAO {
     private Connection conn;
 
     public MySQLFacturaDAO(Connection conn) {
         this.conn = conn;
     }
 
-    public void insertFactura(Factura factura) {
+    @Override
+    public void create(Factura factura) {
         String query = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";
         PreparedStatement ps = null;
 
@@ -31,24 +33,23 @@ public class MySQLFacturaDAO {
         }
     }
 
-    public boolean delete(Integer id) {
+    @Override
+    public void delete(Factura factura) {
         String query = "DELETE FROM Factura WHERE idFactura = ?";
         PreparedStatement ps = null;
 
         try {
             ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
+            ps.setInt(1, factura.getIdFactura());
 
             ps.executeUpdate();
-
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
-    public Factura find(Integer pk) {
+    @Override
+    public Factura findById(int idFactura) {
         String query = "SELECT f.idFactura, f.idCliente " +
                 "FROM Factura f " +
                 "WHERE f.idFactura = ?";
@@ -58,14 +59,14 @@ public class MySQLFacturaDAO {
 
         try {
             ps = conn.prepareStatement(query);
-            ps.setInt(1, pk);
+            ps.setInt(1, idFactura);
             rs = ps.executeQuery();
             if (rs.next()) {
-                int idFactura = rs.getInt("idFactura");
+                int id = rs.getInt("idFactura");
                 int idCliente = rs.getInt("idCliente");
 
                 facturaById = new Factura();
-                facturaById.setIdFactura(idFactura);
+                facturaById.setIdFactura(id);
                 facturaById.setIdCliente(idCliente);
             }
         } catch (SQLException e) {
@@ -75,24 +76,24 @@ public class MySQLFacturaDAO {
         return facturaById;
     }
 
-    public boolean update(Factura dao) {
+    @Override
+    public void update(Factura factura) {
         String query = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
         PreparedStatement ps = null;
 
         try {
             ps = conn.prepareStatement(query);
-            ps.setInt(1, dao.getIdCliente());
-            ps.setInt(2, dao.getIdFactura());
+            ps.setInt(1, factura.getIdCliente());
+            ps.setInt(2, factura.getIdFactura());
 
             ps.executeUpdate();
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
-    public List<Factura> selectList() {
+    @Override
+    public List<Factura> findAll() {
         String query = "SELECT f.idFactura, f.idCliente " +
                 "FROM Factura f";
         PreparedStatement ps = null;

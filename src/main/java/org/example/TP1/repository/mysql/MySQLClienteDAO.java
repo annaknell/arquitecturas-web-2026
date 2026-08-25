@@ -1,5 +1,6 @@
 package org.example.TP1.repository.mysql;
 
+import org.example.TP1.dao.ClienteDAO;
 import org.example.TP1.entidades.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +9,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLClienteDAO {
+public class MySQLClienteDAO implements ClienteDAO {
     private Connection conn;
 
     public MySQLClienteDAO(Connection conn) {
         this.conn = conn;
     }
 
-    public void insertCliente(Cliente cliente) {
+    @Override
+    public void create(Cliente cliente) {
         String query = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
         PreparedStatement ps = null;
 
@@ -33,22 +35,22 @@ public class MySQLClienteDAO {
         }
     }
 
-    public boolean delete(Integer id) {
+    @Override
+    public void delete(int idCliente) {
         String query = "DELETE FROM Cliente WHERE idCliente = ?";
         PreparedStatement ps = null;
 
         try {
             ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
+            ps.setInt(1, idCliente);
             ps.executeUpdate();
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
-    public Cliente find(Integer pk) {
+    @Override
+    public Cliente findById(int idCliente) {
         String query = "SELECT c.idCliente, c.nombre, c.email " +
                 "FROM Cliente c " +
                 "WHERE c.idCliente = ?";
@@ -58,15 +60,15 @@ public class MySQLClienteDAO {
 
         try {
             ps = conn.prepareStatement(query);
-            ps.setInt(1, pk);
+            ps.setInt(1, idCliente);
             rs = ps.executeQuery();
             if (rs.next()) {
-                int idCliente = rs.getInt("idCliente");
+                int id = rs.getInt("idCliente");
                 String nombre = rs.getString("nombre");
                 String email = rs.getString("email");
 
                 clienteById = new Cliente();
-                clienteById.setIdCliente(idCliente);
+                clienteById.setIdCliente(id);
                 clienteById.setNombre(nombre);
                 clienteById.setEmail(email);
             }
@@ -77,27 +79,25 @@ public class MySQLClienteDAO {
         return clienteById;
     }
 
-    public boolean update(Cliente dao) {
+    @Override
+    public void update(Cliente cliente) {
         String query = "UPDATE Cliente SET nombre = ?, email = ? WHERE idCliente = ?";
         PreparedStatement ps = null;
 
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, dao.getNombre());
-            ps.setString(2, dao.getEmail());
-            ps.setInt(3, dao.getIdCliente());
+            ps.setString(1, cliente.getNombre());
+            ps.setString(2, cliente.getEmail());
+            ps.setInt(3, cliente.getIdCliente());
 
             ps.executeUpdate();
-
-            return true;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
-    public List<Cliente> selectList() {
+    @Override
+    public List<Cliente> findAll() {
         String query = "SELECT c.idCliente, c.nombre, c.email " +
                 "FROM Cliente c";
         PreparedStatement ps = null;
@@ -127,6 +127,4 @@ public class MySQLClienteDAO {
 
         return listado;
     }
-
-
 }
