@@ -27,8 +27,8 @@ public class DataBase {
         String factura = "CREATE TABLE IF NOT EXISTS Factura(" +
                 "idFactura INT," +
                 "idCliente INT NULL," +
-                "PRIMARY KEY(idFactura)" +
-                "FOREING KEY(idCliente) REFERENCES Cliente(idCliente))";
+                "PRIMARY KEY(idFactura)," +
+                "FOREIGN KEY(idCliente) REFERENCES Cliente(idCliente))";
 
         String producto = "CREATE TABLE IF NOT EXISTS Producto(" +
                 "idProducto INT," +
@@ -40,7 +40,7 @@ public class DataBase {
                 "idFactura INT ," +
                 "idProducto INT," +
                 "cantidad INT IS NOT NULL," +
-                "PRIMARY KEY(idFactura, idProducto)";
+                "PRIMARY KEY(idFactura, idProducto))";
 
         try(Statement stm = conn.createStatement()){
             stm.execute(cliente);
