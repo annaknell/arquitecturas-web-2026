@@ -123,7 +123,7 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query);
-            
+
             ps.setInt(1, fp.getIdFactura());
             ps.setInt(2, fp.getIdProducto());
 

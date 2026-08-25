@@ -18,37 +18,6 @@ public class MySQLFacturaDAO implements FacturaDAO {
     }
 
     @Override
-    public void create(Factura factura) {
-        String query = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";
-        PreparedStatement ps = null;
-
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, factura.getIdFactura());
-            ps.setInt(2, factura.getIdCliente());
-            ps.executeUpdate();
-            System.out.println("Factura insertada exitosamente.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(Factura factura) {
-        String query = "DELETE FROM Factura WHERE idFactura = ?";
-        PreparedStatement ps = null;
-
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, factura.getIdFactura());
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public Factura findById(int idFactura) {
         String query = "SELECT f.idFactura, f.idCliente " +
                 "FROM Factura f " +
@@ -76,21 +45,6 @@ public class MySQLFacturaDAO implements FacturaDAO {
         return facturaById;
     }
 
-    @Override
-    public void update(Factura factura) {
-        String query = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
-        PreparedStatement ps = null;
-
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, factura.getIdCliente());
-            ps.setInt(2, factura.getIdFactura());
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public List<Factura> findAll() {
@@ -118,4 +72,54 @@ public class MySQLFacturaDAO implements FacturaDAO {
 
         return listado;
     }
+
+    @Override
+    public void create(Factura factura) {
+        String query = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, factura.getIdFactura());
+            ps.setInt(2, factura.getIdCliente());
+            ps.executeUpdate();
+            System.out.println("Factura insertada exitosamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void update(Factura factura) {
+        String query = "UPDATE Factura SET idCliente = ? WHERE idFactura = ?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, factura.getIdCliente());
+            ps.setInt(2, factura.getIdFactura());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void delete(Factura factura) {
+        String query = "DELETE FROM Factura WHERE idFactura = ?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, factura.getIdFactura());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

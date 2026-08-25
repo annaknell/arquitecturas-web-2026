@@ -17,39 +17,6 @@ public class MySQLClienteDAO implements ClienteDAO {
     }
 
     @Override
-    public void create(Cliente cliente) {
-        String query = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
-        PreparedStatement ps = null;
-
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, cliente.getIdCliente());
-            ps.setString(2, cliente.getNombre());
-            ps.setString(3, cliente.getEmail());
-
-            ps.executeUpdate();
-
-            System.out.println("Cliente insertado exitosamente.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(int idCliente) {
-        String query = "DELETE FROM Cliente WHERE idCliente = ?";
-        PreparedStatement ps = null;
-
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, idCliente);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public Cliente findById(int idCliente) {
         String query = "SELECT c.idCliente, c.nombre, c.email " +
                 "FROM Cliente c " +
@@ -77,23 +44,6 @@ public class MySQLClienteDAO implements ClienteDAO {
         }
 
         return clienteById;
-    }
-
-    @Override
-    public void update(Cliente cliente) {
-        String query = "UPDATE Cliente SET nombre = ?, email = ? WHERE idCliente = ?";
-        PreparedStatement ps = null;
-
-        try {
-            ps = conn.prepareStatement(query);
-            ps.setString(1, cliente.getNombre());
-            ps.setString(2, cliente.getEmail());
-            ps.setInt(3, cliente.getIdCliente());
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -127,4 +77,56 @@ public class MySQLClienteDAO implements ClienteDAO {
 
         return listado;
     }
+
+    @Override
+    public void create(Cliente cliente) {
+        String query = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, cliente.getIdCliente());
+            ps.setString(2, cliente.getNombre());
+            ps.setString(3, cliente.getEmail());
+
+            ps.executeUpdate();
+
+            System.out.println("Cliente insertado exitosamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Cliente cliente) {
+        String query = "UPDATE Cliente SET nombre = ?, email = ? WHERE idCliente = ?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cliente.getNombre());
+            ps.setString(2, cliente.getEmail());
+            ps.setInt(3, cliente.getIdCliente());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(int idCliente) {
+        String query = "DELETE FROM Cliente WHERE idCliente = ?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, idCliente);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
