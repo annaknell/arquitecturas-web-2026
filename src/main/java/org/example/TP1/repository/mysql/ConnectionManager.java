@@ -1,4 +1,4 @@
-package org.example.TP1.database;
+package org.example.TP1.repository.mysql;
 
 import org.example.TP1.factory.ConnectionM;
 
