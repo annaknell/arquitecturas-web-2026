@@ -130,7 +130,7 @@ public class MySQLProductoDAO implements ProductoDAO {
 
     @Override
     public Producto findHighestGrossingProduct() {
-        String query = "SELECT p.idProducto, p.nombre, p.valor, SUM(fp.cantidad) AS recaudacion " +
+        String query = "SELECT p.idProducto, p.nombre, p.valor, SUM(fp.cantidad * p.valor) AS recaudacion " +
                 "FROM Producto p JOIN Factura_Producto fp ON fp.idProducto = p.idProducto" +
                 " GROUP BY p.idProducto, p.nombre, p.valor " +
                 "ORDER BY recaudacion DESC " +
