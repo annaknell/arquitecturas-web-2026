@@ -8,6 +8,7 @@ public interface ProductoDAO {
     void create(Producto p);
     void update(Producto p);
     void delete(int idProducto);
+    Producto findHighestGrossingProduct();
 
 
 }

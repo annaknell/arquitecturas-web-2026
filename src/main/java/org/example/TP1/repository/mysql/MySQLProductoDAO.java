@@ -127,4 +127,27 @@ public class MySQLProductoDAO implements ProductoDAO {
         }
 
     }
+
+    @Override
+    public Producto findHighestGrossingProduct() {
+        String query = "SELECT p.idProducto, p.nombre, p.valor, SUM(fp.cantidad) AS recaudacion " +
+                "FROM Producto p JOIN Factura_Producto fp ON fp.idProducto = p.idProducto" +
+                " GROUP BY p.idProducto, p.nombre, p.valor " +
+                "ORDER BY recaudacion DESC " +
+                "LIMIT 1";
+        try(PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery()){
+            if (rs.next()) {
+                Producto producto = new Producto();
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setValor(rs.getDouble("valor"));
+                return producto;
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
