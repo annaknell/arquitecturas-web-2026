@@ -43,10 +43,10 @@ public abstract class DAOFactory {
         return getInstance(type);
     }
 
-    public abstract ClienteDAO createUsuarioDAO();
+    public abstract ClienteDAO createClienteDAO(); // Correccion del nombre
     public abstract ProductoDAO createProductoDAO();
-    public abstract FacturaDAO createPedidoDAO();
-    public abstract FacturaProductoDAO createDetallePedidoDAO();
+    public abstract FacturaDAO createFacturaDAO(); // Correccion del nombre
+    public abstract FacturaProductoDAO createFacturaProductoDAO(); // Correccion del nombre
 
     protected abstract Connection getConnection();
 

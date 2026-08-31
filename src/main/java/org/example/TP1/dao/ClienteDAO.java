@@ -8,6 +8,7 @@ public interface ClienteDAO {
     void create(Cliente u);
     void update(Cliente u);
     void delete(int idCliente);
+    List<Cliente> getClientesOrderByNroFacturas();
 
 }
 
