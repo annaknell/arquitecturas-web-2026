@@ -3,7 +3,7 @@ import java.sql.*;
 import java.sql.Connection;
 
 public class DataBase {
-    public static void main(String[] args){
+    public static void init(){
         String url = "jdbc:postgres://localhost:5432/db_tp1";
         String user = "root";
         String password = "password";
@@ -16,6 +16,9 @@ public class DataBase {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static void main(String [] args){
+        init();
     }
     private static void createTables(Connection conn) throws SQLException{
         String cliente = "CREATE TABLE IF NOT EXISTS Cliente(" +
@@ -40,7 +43,9 @@ public class DataBase {
                 "idFactura INT ," +
                 "idProducto INT," +
                 "cantidad INT IS NOT NULL," +
-                "PRIMARY KEY(idFactura, idProducto))";
+                "PRIMARY KEY(idFactura, idProducto)," +
+                "FOREING KEY(idFactura) REFERENCES Factura(idFactura)," +
+                "FOREING KEY(idProducto) REFERENCES Producto(idProducto))";
 
         try(Statement stm = conn.createStatement()){
             stm.execute(cliente);
