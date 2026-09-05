@@ -42,6 +42,19 @@ public class MySQLClienteDAO implements ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         return clienteById;
     }
@@ -74,6 +87,19 @@ public class MySQLClienteDAO implements ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         return listado;
     }
@@ -95,6 +121,16 @@ public class MySQLClienteDAO implements ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -112,6 +148,16 @@ public class MySQLClienteDAO implements ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -126,6 +172,62 @@ public class MySQLClienteDAO implements ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public List<Cliente> getClientesOrderByNroFacturas(){
+        String query = "SELECT c.idCliente, c.nombre, c.email, COUNT(f.idFactura) AS nroFacturas " +
+                "FROM Cliente c LEFT JOIN Factura f ON c.idCliente = f.idCliente " +
+                "GROUP BY c.idCliente, c.nombre, c.email " +
+                "ORDER BY nroFacturas DESC";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            List<Cliente> clientes = new ArrayList<>();
+
+            while (rs.next()) {
+                int idCliente = rs.getInt("idCliente");
+                String nombre = rs.getString("nombre");
+                String email = rs.getString("email");
+
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(idCliente);
+                cliente.setNombre(nombre);
+                cliente.setEmail(email);
+
+                clientes.add(cliente);
+            }
+
+            return clientes;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
 

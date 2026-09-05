@@ -46,7 +46,20 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return fp;
     }
 
@@ -73,7 +86,20 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return lista;
     }
 
@@ -93,7 +119,17 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
             System.out.println("Producto agregado a la factura exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     @Override
@@ -112,7 +148,17 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
             System.out.println("Cantidad actualizada exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     @Override
@@ -131,7 +177,17 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
             System.out.println("Producto eliminado de la factura exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 }
 

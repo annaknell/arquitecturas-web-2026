@@ -24,9 +24,9 @@ public class MySQLDAOFactory extends DAOFactory {
         ConnectionManager.getInstance().shutdown();
     }
     @Override
-    public ClienteDAO createUsuarioDAO() {
+    public ClienteDAO createClienteDAO() {
         return new MySQLClienteDAO(getConnection()) ;
-    }
+    } // Correccion del nombre
 
     @Override
     public ProductoDAO createProductoDAO() {
@@ -34,14 +34,10 @@ public class MySQLDAOFactory extends DAOFactory {
     }
 
     @Override
-    public FacturaDAO createPedidoDAO() {
-        return new MySQLFacturaDAO(getConnection());
-    }
+    public FacturaDAO createFacturaDAO() {return new MySQLFacturaDAO(getConnection()); } // Correccion del nombre
 
     @Override
-    public FacturaProductoDAO createDetallePedidoDAO() {
-        return new MySQLFacturaProductoDAO(getConnection());
-    }
+    public FacturaProductoDAO createFacturaProductoDAO() {return new MySQLFacturaProductoDAO(getConnection()); } // Correccion del nombre
 
 
 
