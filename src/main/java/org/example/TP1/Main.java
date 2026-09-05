@@ -25,10 +25,10 @@ public class Main {
         DAOFactory factory = DAOFactory.getInstance(DBType.MYSQL);
         try {
 
-            ClienteDAO clienteDAO = factory.createUsuarioDAO();
+            ClienteDAO clienteDAO = factory.createClienteDAO();
             ProductoDAO productoDAO = factory.createProductoDAO();
-            FacturaDAO facturaDAO = factory.createPedidoDAO();
-            FacturaProductoDAO facturaProductoDAO = factory.createDetallePedidoDAO();
+            FacturaDAO facturaDAO = factory.createFacturaDAO();
+            FacturaProductoDAO facturaProductoDAO = factory.createFacturaProductoDAO();
 
             new ClienteCsvLoader(clienteDAO).cargar(RUTA_CLIENTES);
             new ProductoCsvLoader(productoDAO).cargar(RUTA_PRODUCTOS);
@@ -42,6 +42,11 @@ public class Main {
                 System.out.println("Valor unitario: " + masVendido.getValor());
             } else {
                 System.out.println("No se encontraron datos de facturación.");
+            }
+
+            List<Cliente> clientesOrdenados = clienteDAO.getClientesOrderByNroFacturas();
+            for (Cliente c : clientesOrdenados) {
+                System.out.println(c.getIdCliente() + " - " + c.getNombre() + " - " + c.getEmail());
             }
 
         } finally {
