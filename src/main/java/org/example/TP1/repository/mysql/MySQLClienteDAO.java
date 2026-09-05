@@ -106,6 +106,9 @@ public class MySQLClienteDAO implements ClienteDAO {
 
     @Override
     public void create(Cliente cliente) {
+        if (findById(cliente.getIdCliente()) != null) {
+            return;
+        }
         String query = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
         PreparedStatement ps = null;
 

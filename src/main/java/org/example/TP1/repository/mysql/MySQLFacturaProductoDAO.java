@@ -105,6 +105,9 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
 
     @Override
     public void create(Factura_Producto fp) {
+        if (findById(fp.getIdFactura(), fp.getIdProducto()) != null) {
+            return;
+        }
         String query = "INSERT INTO Factura_Producto (idFactura, idProducto, cantidad) VALUES (?, ?, ?)";
 
         PreparedStatement ps = null;
@@ -190,4 +193,3 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
 
     }
 }
-
