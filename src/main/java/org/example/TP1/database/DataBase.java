@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 public class DataBase {
     public static void init(){
-        String url = "jdbc:postgres://localhost:5432/db_tp1";
+        String url = "jdbc:mysql://localhost:3306/db_tp1";
         String user = "root";
         String password = "password";
 
@@ -23,8 +23,8 @@ public class DataBase {
     private static void createTables(Connection conn) throws SQLException{
         String cliente = "CREATE TABLE IF NOT EXISTS Cliente(" +
                 "idCliente INT," +
-                "nombre VARCHAR(50) IS NOT NULL," +
-                "email VARCHAR(50) IS NOT NULL," +
+                "nombre VARCHAR(500) NOT NULL," +
+                "email VARCHAR(150) NOT NULL," +
                 "PRIMARY KEY(idCliente))";
 
         String factura = "CREATE TABLE IF NOT EXISTS Factura(" +
@@ -35,17 +35,17 @@ public class DataBase {
 
         String producto = "CREATE TABLE IF NOT EXISTS Producto(" +
                 "idProducto INT," +
-                "nombre VARCHAR(50) IS NOT NULL," +
-                "valor FLOAT IS NOT NULL," +
+                "nombre VARCHAR(45) NOT NULL," +
+                "valor FLOAT NOT NULL," +
                 "PRIMARY KEY(idProducto))";
 
         String factura_producto = "CREATE TABLE IF NOT EXISTS Factura_Producto(" +
                 "idFactura INT ," +
                 "idProducto INT," +
-                "cantidad INT IS NOT NULL," +
+                "cantidad INT NOT NULL," +
                 "PRIMARY KEY(idFactura, idProducto)," +
-                "FOREING KEY(idFactura) REFERENCES Factura(idFactura)," +
-                "FOREING KEY(idProducto) REFERENCES Producto(idProducto))";
+                "FOREIGN KEY(idFactura) REFERENCES Factura(idFactura)," +
+                "FOREIGN KEY(idProducto) REFERENCES Producto(idProducto))";
 
         try(Statement stm = conn.createStatement()){
             stm.execute(cliente);

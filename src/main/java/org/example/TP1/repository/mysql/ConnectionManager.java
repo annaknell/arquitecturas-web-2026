@@ -18,6 +18,7 @@ public class ConnectionManager implements ConnectionM {
         try{
             //Class.forName("com.mysql.cj.jdbc.Driver");
             this.conn = DriverManager.getConnection(url, user, password);
+            this.conn.setAutoCommit(false);
             System.out.println("Conexión establecida correctamente con MySQL.");
         } catch (SQLException e) {
             System.err.println("Error al conectar con la base de datos.");

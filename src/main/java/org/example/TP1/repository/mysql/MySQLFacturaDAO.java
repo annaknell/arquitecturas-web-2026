@@ -99,6 +99,9 @@ public class MySQLFacturaDAO implements FacturaDAO {
 
     @Override
     public void create(Factura factura) {
+        if (findById(factura.getIdFactura()) != null) {
+            return;
+        }
         String query = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";
         PreparedStatement ps = null;
 
@@ -112,7 +115,6 @@ public class MySQLFacturaDAO implements FacturaDAO {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void update(Factura factura) {

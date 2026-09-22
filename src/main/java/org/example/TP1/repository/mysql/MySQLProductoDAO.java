@@ -79,6 +79,9 @@ public class MySQLProductoDAO implements ProductoDAO {
 
     @Override
     public void create(Producto p) {
+        if (findById(p.getIdProducto()) != null) {
+            return;
+        }
         String query = "INSERT INTO Producto (idProducto, nombre, valor) VALUES (?, ?, ?)";
         PreparedStatement ps = null;
 
