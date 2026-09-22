@@ -22,6 +22,7 @@ public class EstudianteServiceImpl implements EstudianteService {
         }
     }
 
+    @Override
     public List<Estudiante> listarEstudiantesOrdenadosPorEdad() {
         return estudianteRepository.findAllOrderByEdad();
     }

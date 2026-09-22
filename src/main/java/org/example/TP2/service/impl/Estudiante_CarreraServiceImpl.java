@@ -24,10 +24,15 @@ public class Estudiante_CarreraServiceImpl implements Estudiante_CarreraService 
         this.carreraRepository = carreraRepository;
     }
 
+    @Override
     public void matricularEstudiante(int estudianteDNI, int carreraId) {
 
         Estudiante estudiante = estudianteRepository.findByDNI(estudianteDNI);
         Carrera carrera = carreraRepository.findById(carreraId);
+        Estudiante_Carrera inscripcion = estudiante_carreraRepository.findByEstudianteAndCarrera(estudianteDNI, carreraId);
+        if (inscripcion != null) {
+            return; // El estudiante ya está inscripto en esta carrera
+        }
         if (estudiante != null && carrera != null) {
             Estudiante_Carrera nuevaInscripcion = new Estudiante_Carrera();
             nuevaInscripcion.setEstudiante(estudiante);

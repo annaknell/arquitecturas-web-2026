@@ -22,11 +22,16 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 
     @Override
     public Estudiante_Carrera findByEstudianteAndCarrera(int estudianteDNI, int carreraId) {
-        String query = "SELECT ec FROM Estudiante_Carrera WHERE estudianteDNI = :estudianteDNI AND carreraId = :carreraId";
+        String query = "SELECT ec FROM Estudiante_Carrera ec " +
+                       "WHERE ec.estudiante.DNI = :estudianteDNI " +
+                       "AND ec.carrera.id = :carreraId";
+
         return em.createQuery(query, Estudiante_Carrera.class)
                 .setParameter("estudianteDNI", estudianteDNI)
                 .setParameter("carreraId", carreraId)
-                .getSingleResult();
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
     }
 
 
