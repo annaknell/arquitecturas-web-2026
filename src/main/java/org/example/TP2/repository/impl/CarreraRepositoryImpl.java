@@ -11,16 +11,26 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 
     @Override
     public void save(Carrera carrera) {
-
+        em.getTransaction().begin();    
+        em.persist(carrera);
+        em.getTransaction().commit();
     }
 
     @Override
     public Carrera findById(int id) {
-        return null;
+       return em.find(Carrera.class, id);
+
     }
 
     @Override
     public void delete(Carrera carrera) {
+        em.getTransaction().begin();
 
+        if (!em.contains(carrera)) {
+            carrera = em.merge(carrera);
+        }
+        em.remove(carrera);
+
+        em.getTransaction().commit();
     }
 }
