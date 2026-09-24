@@ -9,4 +9,6 @@ public interface EstudianteService {
     void altaEstudiante(Estudiante estudiante);
 
     List<Estudiante> listarEstudiantesOrdenadosPorEdad();
+
+    Estudiante obtenerEstudiantePorLibreta(int LU);
 }

@@ -12,4 +12,6 @@ public interface EstudianteRepository {
     void delete(Estudiante estudiante);
 
     List<Estudiante> findAllOrderByEdad();
+
+    Estudiante findByLibretaUniversitaria(int LU);
 }

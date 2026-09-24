@@ -34,4 +34,17 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         String query = "SELECT e FROM Estudiante e ORDER BY e.edad ASC";
         return em.createQuery(query, Estudiante.class).getResultList();
     }
+
+    @Override
+    public Estudiante findByLibretaUniversitaria(int LU) {
+        String query = "SELECT e FROM Estudiante e " +
+                        "WHERE e.LU = :LU";
+
+            return em.createQuery(query, Estudiante.class)
+                .setParameter("LU", LU)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+
+    }
 }
