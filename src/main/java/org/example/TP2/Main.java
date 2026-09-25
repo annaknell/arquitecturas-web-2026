@@ -3,11 +3,24 @@ import org.example.TP2.entidades.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.TP2.repository.CarreraRepository;
+import org.example.TP2.repository.EstudianteRepository;
+import org.example.TP2.repository.Estudiante_CarreraRepository;
+import org.example.TP2.repository.impl.CarreraRepositoryImpl;
+import org.example.TP2.repository.impl.EstudianteRepositoryImpl;
+import org.example.TP2.repository.impl.Estudiante_CarreraRepositoryImpl;
+import org.example.TP2.service.CarreraService;
+import org.example.TP2.service.EstudianteService;
+import org.example.TP2.service.Estudiante_CarreraService;
+import org.example.TP2.service.impl.CarreraServiceImpl;
+import org.example.TP2.service.impl.EstudianteServiceImpl;
+import org.example.TP2.service.impl.Estudiante_CarreraServiceImpl;
 
 import javax.persistence.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args){
@@ -25,6 +38,68 @@ public class Main {
             em.getTransaction().commit();
             System.out.println("Datos cargados exitosamente.");
         } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        try{
+            EstudianteRepository estudianteRepo = new EstudianteRepositoryImpl(em);
+            CarreraRepository carreraRepo = new CarreraRepositoryImpl(em);
+            Estudiante_CarreraRepository inscripcionRepo = new Estudiante_CarreraRepositoryImpl(em);
+
+            EstudianteService estudianteService = new EstudianteServiceImpl(estudianteRepo);
+            CarreraService carreraService = new CarreraServiceImpl(carreraRepo);
+
+            Estudiante_CarreraService inscripcionService = new Estudiante_CarreraServiceImpl(
+                    inscripcionRepo,
+                    estudianteRepo,
+                    carreraRepo
+            );
+
+
+            // a) dar de alta un estudiante
+            em.getTransaction().begin();
+            Estudiante nuevoEstudiante = new Estudiante();
+
+            nuevoEstudiante.setDNI(35840722);
+            nuevoEstudiante.setNombre("Marcelo");
+            nuevoEstudiante.setApellido("Gutierréz");
+            nuevoEstudiante.setEdad(35);
+            nuevoEstudiante.setGenero("Male");
+            nuevoEstudiante.setCiudad("Tandil");
+            nuevoEstudiante.setLU(9287);
+
+            estudianteService.altaEstudiante(nuevoEstudiante);
+            System.out.println(nuevoEstudiante.getApellido());
+            em.getTransaction().commit();
+
+            // b) matricular un estudiante en una carrera
+            em.getTransaction().begin();
+            int dni = 45608327;
+            int idCarrera = 1;
+            inscripcionService.matricularEstudiante(dni, idCarrera);
+            em.getTransaction().commit();
+
+            // c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple (en nuestro caso, edad)
+            List<Estudiante> ageFilteredEstudiantes = estudianteService.listarEstudiantesOrdenadosPorEdad();
+
+            // d) recuperar un estudiante, en base a su número de libreta universitaria
+            int LU = 9845;
+            Estudiante LUfilteredEstudiante = estudianteService.obtenerEstudiantePorLibreta(LU);
+
+            // e) recuperar todos los estudiantes, en base a su género.
+            String genero = "Female";
+            List<Estudiante> genderFilterEstudiantes = estudianteService.listarEstudiantesPorGenero(genero);
+
+            // f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
+            List<Carrera> carrerarOrdenadas = carreraService.listarCarrerasConInscriptosOrdenados();
+
+            // g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
+            String nombreCarrera = "Ingeniería en Sistemas";
+            String ciudad = "Olavarría";
+            //List<Estudiante> estudiantesFiltrados = estudianteService.listarEstudiantesPorCarreraYCiudad(nombreCarrera, ciudad);
+
+        }catch (Exception e) {
             em.getTransaction().rollback();
             e.printStackTrace();
         } finally {

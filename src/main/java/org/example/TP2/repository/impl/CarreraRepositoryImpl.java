@@ -7,8 +7,11 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 public class CarreraRepositoryImpl implements CarreraRepository {
-
     EntityManager em;
+
+    public CarreraRepositoryImpl(EntityManager em){
+        this.em = em;
+    }
 
     @Override
     public void save(Carrera carrera) {
