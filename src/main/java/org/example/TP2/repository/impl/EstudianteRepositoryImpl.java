@@ -47,4 +47,14 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
                 .orElse(null);
 
     }
+
+    @Override
+    public List<Estudiante> findAllByGenero(String genero) {
+        String query = "SELECT e FROM Estudiante e " +
+                        "WHERE e.genero = :genero";
+
+        return em.createQuery(query, Estudiante.class)
+            .setParameter("genero", genero)
+            .getResultList();
+    }
 }

@@ -29,4 +29,9 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     @Override
     public Estudiante obtenerEstudiantePorLibreta(int LU) { return estudianteRepository.findByLibretaUniversitaria(LU); }
+
+    @Override
+    public List<Estudiante> ListarEstudiantesPorGenero(String genero) {
+        return estudianteRepository.findAllByGenero(genero);
+    }
 }
