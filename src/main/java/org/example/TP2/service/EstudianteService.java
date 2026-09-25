@@ -12,5 +12,5 @@ public interface EstudianteService {
 
     Estudiante obtenerEstudiantePorLibreta(int LU);
 
-    List<Estudiante> ListarEstudiantesPorGenero(String genero);
+    List<Estudiante> listarEstudiantesPorGenero(String genero);
 }

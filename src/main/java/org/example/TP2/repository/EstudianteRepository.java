@@ -16,4 +16,6 @@ public interface EstudianteRepository {
     Estudiante findByLibretaUniversitaria(int LU);
 
     List<Estudiante> findAllByGenero(String genero);
+
+    List<Estudiante> findByCarreraAndCiudad(String carrera, String ciudad);
 }

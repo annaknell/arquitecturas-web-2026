@@ -4,6 +4,7 @@ import org.example.TP2.entidades.Carrera;
 import org.example.TP2.repository.CarreraRepository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public class CarreraRepositoryImpl implements CarreraRepository {
 
@@ -32,5 +33,13 @@ public class CarreraRepositoryImpl implements CarreraRepository {
         em.remove(carrera);
 
         em.getTransaction().commit();
+    }
+
+    @Override
+    public List<Carrera> findAllconInscriptosOrdernados() {
+        String query = "SELECT ec.carrera FROM Estudiante_Carrera ec " +
+                        "GROUP BY ec.carrera " +
+                        "ORDER BY COUNT(ec.estudiante) DESC";
+        return em.createQuery(query, Carrera.class).getResultList();
     }
 }

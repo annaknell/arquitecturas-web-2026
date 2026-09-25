@@ -57,4 +57,15 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
             .setParameter("genero", genero)
             .getResultList();
     }
+
+    @Override
+    public List<Estudiante> findByCarreraAndCiudad(String nombreCarrera, String ciudad) {
+        String query = "SELECT ec.estudiante FROM Estudiante_Carrera ec " +
+                        "WHERE ec.carrera.carrera = :carrera " +
+                        "AND ec.estudiante.ciudad = :ciudad";
+        return em.createQuery(query, Estudiante.class)
+                .setParameter("carrera", nombreCarrera)
+                .setParameter("ciudad", ciudad)
+                .getResultList();
+    }
 }
