@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.List;
-
+import org.example.TP2.dto.ReporteCarreraAnio;
 public class Main {
     public static void main(String[] args){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence_tp2");
@@ -99,6 +99,13 @@ public class Main {
             String ciudad = "Olavarría";
             //List<Estudiante> estudiantesFiltrados = estudianteService.listarEstudiantesPorCarreraYCiudad(nombreCarrera, ciudad);
 
+            // 3) reporte carreras con inscriptos y egresados por año
+            System.out.println("\n REPORTE DE CARRERAS");
+            List<ReporteCarreraAnio> reporte = carreraService.generarReporteCarreras();
+            for (ReporteCarreraAnio r : reporte) {
+                System.out.println(r.getCarrera() + " (Año " + r.getAnio() + "): " + r.getInscriptos() + " inscriptos, " + r.getEgresados() + " egresados");
+            }
+
         }catch (Exception e) {
             em.getTransaction().rollback();
             e.printStackTrace();
@@ -106,6 +113,7 @@ public class Main {
             em.close();
             emf.close();
         }
+
     }
 
     // CSV: DNI,nombre,apellido,edad,genero,ciudad,LU
