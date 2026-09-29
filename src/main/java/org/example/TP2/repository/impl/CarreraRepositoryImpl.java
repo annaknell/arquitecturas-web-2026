@@ -16,9 +16,9 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 
     @Override
     public void save(Carrera carrera) {
-        em.getTransaction().begin();    
+        em.getTransaction().begin();    //borrar los dos getTransaction, de eso se encarga el Main, no el repository
         em.persist(carrera);
-        em.getTransaction().commit();
+        em.getTransaction().commit(); //aca
     }
 
     @Override
@@ -29,14 +29,14 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 
     @Override
     public void delete(Carrera carrera) {
-        em.getTransaction().begin();
+        em.getTransaction().begin(); // idem acá
 
         if (!em.contains(carrera)) {
             carrera = em.merge(carrera);
         }
         em.remove(carrera);
 
-        em.getTransaction().commit();
+        em.getTransaction().commit(); //aca
     }
 
     @Override

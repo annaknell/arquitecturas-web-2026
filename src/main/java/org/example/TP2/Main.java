@@ -58,6 +58,7 @@ public class Main {
 
 
             // a) dar de alta un estudiante
+            System.out.println("\n--- a) Dar de alta un estudiante ---");
             em.getTransaction().begin();
             Estudiante nuevoEstudiante = new Estudiante();
 
@@ -70,34 +71,60 @@ public class Main {
             nuevoEstudiante.setLU(9287);
 
             estudianteService.altaEstudiante(nuevoEstudiante);
-            System.out.println(nuevoEstudiante.getApellido());
+            System.out.println("Estudiante dado de alta: " + nuevoEstudiante.getNombre() + " " + nuevoEstudiante.getApellido());
             em.getTransaction().commit();
 
             // b) matricular un estudiante en una carrera
+            System.out.println("\n--- a) Matricular a un estudiante ---");
             em.getTransaction().begin();
             int dni = 45608327;
             int idCarrera = 1;
             inscripcionService.matricularEstudiante(dni, idCarrera);
             em.getTransaction().commit();
+            System.out.println("Estudiante DNI " + dni + " matriculado con éxito en carrera ID " + idCarrera);
 
             // c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple (en nuestro caso, edad)
+            System.out.println("\n--- c) Listado de estudiantes ordenados por edad ---");
             List<Estudiante> ageFilteredEstudiantes = estudianteService.listarEstudiantesOrdenadosPorEdad();
+            for (Estudiante e : ageFilteredEstudiantes) {
+                System.out.println(e.getNombre() + " " + e.getApellido() + " - Edad: " + e.getEdad() + " - DNI: " + e.getDNI());
+            }
 
             // d) recuperar un estudiante, en base a su número de libreta universitaria
+            System.out.println("\n--- d) Buscar estudiante por LU ---");
             int LU = 9845;
             Estudiante LUfilteredEstudiante = estudianteService.obtenerEstudiantePorLibreta(LU);
+            if (LUfilteredEstudiante != null) {
+                System.out.println("Estudiante encontrado con LU " + LU + ": " + LUfilteredEstudiante.getNombre() + " " + LUfilteredEstudiante.getApellido());
+            } else {
+                System.out.println("No se encontró ningún estudiante con LU " + LU);
+            }
 
             // e) recuperar todos los estudiantes, en base a su género.
+            System.out.println("\n--- e) Listar estudiantes por género ---");
             String genero = "Female";
             List<Estudiante> genderFilterEstudiantes = estudianteService.listarEstudiantesPorGenero(genero);
+            System.out.println("Estudiantes con género '" + genero + "': " + genderFilterEstudiantes.size() + " encontrados.");
+            for (Estudiante e : genderFilterEstudiantes) {
+                System.out.println("- " + e.getNombre() + " " + e.getApellido() + " (" + e.getGenero() + ")");
+            }
 
             // f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
-            List<Carrera> carrerarOrdenadas = carreraService.listarCarrerasConInscriptosOrdenados();
+            System.out.println("\n--- f) Carreras ordenadas por cantidad de inscriptos ---");
+            List<Carrera> carrerasOrdenadas = carreraService.listarCarrerasConInscriptosOrdenados();
+            for (Carrera c : carrerasOrdenadas) {
+                System.out.println("Carrera: " + c.getCarrera() + " (ID: " + c.getId() + ")");
+            }
 
             // g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
+            System.out.println("\n--- g) Estudiantes de una carrera filtrados por ciudad ---");
             String nombreCarrera = "Ingeniería en Sistemas";
             String ciudad = "Olavarría";
-            //List<Estudiante> estudiantesFiltrados = estudianteService.listarEstudiantesPorCarreraYCiudad(nombreCarrera, ciudad);
+            List<Estudiante> estudiantesFiltrados = estudianteService.listarEstudiantesPorCarreraYCiudad(nombreCarrera, ciudad);
+            System.out.println("Estudiantes de " + nombreCarrera + " que viven en " + ciudad + ":");
+            for (Estudiante e : estudiantesFiltrados) {
+                System.out.println("- " + e.getNombre() + " " + e.getApellido() + " (Ciudad: " + e.getCiudad() + ")");
+            }
 
             // 3) reporte carreras con inscriptos y egresados por año
             System.out.println("\n REPORTE DE CARRERAS");
