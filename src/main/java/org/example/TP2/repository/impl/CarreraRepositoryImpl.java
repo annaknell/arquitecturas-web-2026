@@ -32,7 +32,7 @@ public class CarreraRepositoryImpl implements CarreraRepository {
             carrera = em.merge(carrera);
         }
         em.remove(carrera);
-        
+
     }
 
     @Override
