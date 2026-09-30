@@ -92,7 +92,7 @@ public class Main {
 
             // d) recuperar un estudiante, en base a su número de libreta universitaria
             System.out.println("\n--- d) Buscar estudiante por LU ---");
-            int LU = 9845;
+            int LU = 9287;
             Estudiante LUfilteredEstudiante = estudianteService.obtenerEstudiantePorLibreta(LU);
             if (LUfilteredEstudiante != null) {
                 System.out.println("Estudiante encontrado con LU " + LU + ": " + LUfilteredEstudiante.getNombre() + " " + LUfilteredEstudiante.getApellido());
