@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.TP2.entidades.Estudiante_Carrera;
+import org.example.TP3.entity.Estudiante_Carrera;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,7 +1,7 @@
 package org.example.TP3.entity;
 
 import lombok.*;
-import org.example.TP2.entidades.Estudiante_Carrera;
+import org.example.TP3.entity.Estudiante_Carrera;
 
 import javax.persistence.*;
 import java.util.List;

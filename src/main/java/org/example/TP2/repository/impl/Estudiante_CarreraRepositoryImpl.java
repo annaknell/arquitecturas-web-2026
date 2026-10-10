@@ -1,7 +1,5 @@
 package org.example.TP2.repository.impl;
 
-import org.example.TP2.entidades.Carrera;
-import org.example.TP2.entidades.Estudiante;
 import org.example.TP2.entidades.Estudiante_Carrera;
 import org.example.TP2.repository.Estudiante_CarreraRepository;
 
