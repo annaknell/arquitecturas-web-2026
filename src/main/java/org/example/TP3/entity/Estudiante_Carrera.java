@@ -1,0 +1,37 @@
+package org.example.TP3.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.example.TP2.entidades.Carrera;
+import org.example.TP2.entidades.Estudiante;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Estudiante_Carrera {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_estudiante")
+    private Estudiante estudiante;
+
+    @ManyToOne
+    @JoinColumn(name = "id_carrera")
+    private Carrera carrera;
+
+    @Column
+    private int inscripcion;
+    @Column
+    private int graduacion;
+    @Column
+    private int antiguedad;
+}
+
