@@ -44,7 +44,7 @@ public class CarreraRepositoryImpl implements CarreraRepository {
     }
 
     @Override public List<ConteoPorAnio> contarInscriptosPorCarreraYAnio() {
-        String query = "SELECT NEW org.example.TP2.dto.ConteoPorAnio(ec.carrera.carrera, ec.inscripcion, COUNT(ec)) " +
+        String query = "SELECT NEW org.example.TP3.dto.ConteoPorAnio(ec.carrera.carrera, ec.inscripcion, COUNT(ec)) " +
                 "FROM Estudiante_Carrera ec " +
                 "GROUP BY ec.carrera.carrera, ec.inscripcion " +
                 "ORDER BY ec.carrera.carrera, ec.inscripcion";
@@ -52,7 +52,7 @@ public class CarreraRepositoryImpl implements CarreraRepository {
     }
 
     @Override public List<ConteoPorAnio> contarEgresadosPorCarreraYAnio() {
-        String query = "SELECT NEW org.example.TP2.dto.ConteoPorAnio(ec.carrera.carrera, ec.graduacion, COUNT(ec)) " +
+        String query = "SELECT NEW org.example.TP3.dto.ConteoPorAnio(ec.carrera.carrera, ec.graduacion, COUNT(ec)) " +
                 "FROM Estudiante_Carrera ec " +
                 "WHERE ec.graduacion <> 0 " +
                 "GROUP BY ec.carrera.carrera, ec.graduacion " +
