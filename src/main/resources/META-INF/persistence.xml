@@ -4,15 +4,19 @@
     <persistence-unit name="persistence_tp2" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>org.example.TP2.entidades.Estudiante</class>
-        <class>org.example.TP2.entidades.Carrera</class>
-        <class>org.example.TP2.entidades.Estudiante_Carrera</class>
+
+
+        <class>org.example.TP3.entity.Estudiante</class>
+        <class>org.example.TP3.entity.Carrera</class>
+        <class>org.example.TP3.entity.Estudiante_Carrera</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
 
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tp2_arquitecturas"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
 
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
