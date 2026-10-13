@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EstudianteService {
 
-    void altaEstudiante(Estudiante estudiante);
+    boolean altaEstudiante(Estudiante estudiante);
 
     List<Estudiante> listarEstudiantesOrdenadosPorEdad();
 

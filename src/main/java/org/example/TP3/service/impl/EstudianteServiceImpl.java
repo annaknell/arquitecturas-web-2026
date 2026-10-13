@@ -15,11 +15,13 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
-    public void altaEstudiante(Estudiante estudiante) {
+    public boolean altaEstudiante(Estudiante estudiante) {
         Estudiante existente = estudianteRepository.findByDNI(estudiante.getDNI());
-        if (existente == null) {
-            estudianteRepository.save(estudiante);
+        if (existente != null) {
+            return false;
         }
+        estudianteRepository.save(estudiante);
+        return true;
     }
 
     @Override
@@ -28,7 +30,9 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
-    public Estudiante obtenerEstudiantePorLibreta(int LU) { return estudianteRepository.findByLibretaUniversitaria(LU); }
+    public Estudiante obtenerEstudiantePorLibreta(int LU) {
+        return estudianteRepository.findByLibretaUniversitaria(LU);
+    }
 
     @Override
     public List<Estudiante> listarEstudiantesPorGenero(String genero) {

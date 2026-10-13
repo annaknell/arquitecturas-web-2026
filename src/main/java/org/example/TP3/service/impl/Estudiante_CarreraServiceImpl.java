@@ -25,22 +25,22 @@ public class Estudiante_CarreraServiceImpl implements Estudiante_CarreraService 
     }
 
     @Override
-    public void matricularEstudiante(int estudianteDNI, int carreraId) {
-
+    public boolean matricularEstudiante(int estudianteDNI, int carreraId) {
         Estudiante estudiante = estudianteRepository.findByDNI(estudianteDNI);
         Carrera carrera = carreraRepository.findById(carreraId);
-        Estudiante_Carrera inscripcion = estudiante_carreraRepository.findByEstudianteAndCarrera(estudianteDNI, carreraId);
-        if (inscripcion != null) {
-            return; // El estudiante ya está inscripto en esta carrera
+        if (estudiante == null || carrera == null) {
+            return false;
         }
-        if (estudiante != null && carrera != null) {
-            Estudiante_Carrera nuevaInscripcion = new Estudiante_Carrera();
-            nuevaInscripcion.setEstudiante(estudiante);
-            nuevaInscripcion.setCarrera(carrera);
-            nuevaInscripcion.setInscripcion(Year.now().getValue());
-            nuevaInscripcion.setGraduacion(0);
-            nuevaInscripcion.setAntiguedad(0);
-            estudiante_carreraRepository.save(nuevaInscripcion);
+        if (estudiante_carreraRepository.findByEstudianteAndCarrera(estudianteDNI, carreraId) != null) {
+            return false;
         }
+        Estudiante_Carrera nuevaInscripcion = new Estudiante_Carrera();
+        nuevaInscripcion.setEstudiante(estudiante);
+        nuevaInscripcion.setCarrera(carrera);
+        nuevaInscripcion.setInscripcion(Year.now().getValue());
+        nuevaInscripcion.setGraduacion(0);
+        nuevaInscripcion.setAntiguedad(0);
+        estudiante_carreraRepository.save(nuevaInscripcion);
+        return true;
     }
 }

@@ -11,6 +11,16 @@ public class EstudianteController {
         this.estudianteService = estudianteService;
     }
 
+    // a) dar de alta un estudiante
+    public boolean altaEstudiante(Estudiante estudiante){
+        return estudianteService.altaEstudiante(estudiante);
+    }
+
+    // c) recuperar todos los estudiantes, ordenados por edad
+    public List<Estudiante> getAllOrderByEdad(){
+        return estudianteService.listarEstudiantesOrdenadosPorEdad();
+    }
+
     // d) recuperar un estudiante, en base a su número de libreta universitaria.
     public Estudiante getByLibretaUniversitaria(int LU){
         return estudianteService.obtenerEstudiantePorLibreta(LU);
