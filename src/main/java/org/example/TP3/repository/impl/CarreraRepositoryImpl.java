@@ -3,10 +3,12 @@ package org.example.TP3.repository.impl;
 import org.example.TP3.dto.ConteoPorAnio;
 import org.example.TP3.entity.Carrera;
 import org.example.TP3.repository.CarreraRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
 public class CarreraRepositoryImpl implements CarreraRepository {
     EntityManager em;
 

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CarreraService {
 
+    boolean altaCarrera(Carrera carrera);
+
     List<Carrera> listarCarrerasConInscriptosOrdenados();
 
     List<ReporteCarreraAnio> generarReporteCarreras();

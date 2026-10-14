@@ -5,18 +5,30 @@ import org.example.TP3.dto.ReporteCarreraAnio;
 import org.example.TP3.entity.Carrera;
 import org.example.TP3.repository.CarreraRepository;
 import org.example.TP3.service.CarreraService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+@Service
 public class CarreraServiceImpl implements CarreraService {
 
+    @Autowired
     private CarreraRepository carreraRepository;
 
     public CarreraServiceImpl(CarreraRepository carreraRepository) {
         this.carreraRepository = carreraRepository;
+    }
+
+    @Override
+    @Transactional
+    public boolean altaCarrera(Carrera carrera) {
+        carreraRepository.save(carrera);
+        return true;
     }
 
     @Override

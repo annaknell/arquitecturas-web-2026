@@ -3,9 +3,11 @@ package org.example.TP3.repository.impl;
 
 import org.example.TP3.entity.Estudiante_Carrera;
 import org.example.TP3.repository.Estudiante_CarreraRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 
+@Repository
 public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepository {
 
     private EntityManager em;

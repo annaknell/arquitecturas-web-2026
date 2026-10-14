@@ -2,10 +2,12 @@ package org.example.TP3.repository.impl;
 
 import org.example.TP3.entity.Estudiante;
 import org.example.TP3.repository.EstudianteRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
 public class EstudianteRepositoryImpl implements EstudianteRepository {
 
     private EntityManager em;

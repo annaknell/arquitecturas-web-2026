@@ -3,6 +3,7 @@ package org.example.TP3.entity;
 import lombok.*;
 import org.example.TP3.entity.Estudiante_Carrera;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Estudiante {
     @Column
     private int LU;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "estudiante")
     private List<Estudiante_Carrera> carrerasInscriptas;
 }
