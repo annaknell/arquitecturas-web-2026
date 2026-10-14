@@ -9,6 +9,8 @@ public interface CarreraService {
 
     boolean altaCarrera(Carrera carrera);
 
+    List<Carrera> listarCarreras();
+
     List<Carrera> listarCarrerasConInscriptosOrdenados();
 
     List<ReporteCarreraAnio> generarReporteCarreras();

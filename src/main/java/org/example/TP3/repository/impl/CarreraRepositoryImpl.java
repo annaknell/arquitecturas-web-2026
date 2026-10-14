@@ -28,6 +28,12 @@ public class CarreraRepositoryImpl implements CarreraRepository {
     }
 
     @Override
+    public List<Carrera> findAll() {
+        String query = "SELECT c FROM Carrera c ORDER BY c.id ASC";
+        return em.createQuery(query, Carrera.class).getResultList();
+    }
+
+    @Override
     public void delete(Carrera carrera) {
 
         if (!em.contains(carrera)) {

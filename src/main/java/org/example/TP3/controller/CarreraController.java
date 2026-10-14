@@ -21,6 +21,12 @@ public class CarreraController {
         return carreraService.altaCarrera(carrera);
     }
 
+    // listar todas las carreras, sin filtrar   ->  GET /carreras/todas
+    @RequestMapping(value = "/todas", method = RequestMethod.GET, produces = "application/json")
+    public List<Carrera> getAllCarreras(){
+        return carreraService.listarCarreras();
+    }
+
     // f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     //     ->  GET /carreras
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")

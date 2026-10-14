@@ -10,6 +10,8 @@ public interface CarreraRepository {
 
     Carrera findById(int id);
 
+    List<Carrera> findAll();
+
     void delete(Carrera carrera);
 
     List<Carrera> findAllconInscriptosOrdernados();

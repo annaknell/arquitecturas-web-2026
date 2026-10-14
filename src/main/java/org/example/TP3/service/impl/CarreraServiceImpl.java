@@ -32,6 +32,11 @@ public class CarreraServiceImpl implements CarreraService {
     }
 
     @Override
+    public List<Carrera> listarCarreras() {
+        return carreraRepository.findAll();
+    }
+
+    @Override
     public List<Carrera> listarCarrerasConInscriptosOrdenados() {
         return carreraRepository.findAllconInscriptosOrdernados();
     }
