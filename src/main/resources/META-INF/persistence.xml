@@ -6,9 +6,9 @@
 
 
 
-        <class>org.example.TP3.entity.Estudiante</class>
-        <class>org.example.TP3.entity.Carrera</class>
-        <class>org.example.TP3.entity.Estudiante_Carrera</class>
+        <class>org.example.TP2.entidades.Estudiante</class>
+        <class>org.example.TP2.entidades.Carrera</class>
+        <class>org.example.TP2.entidades.Estudiante_Carrera</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
