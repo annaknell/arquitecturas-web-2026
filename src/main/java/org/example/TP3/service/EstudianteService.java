@@ -21,7 +21,7 @@ public class EstudianteService {
 
     @Transactional
     public boolean altaEstudiante(Estudiante estudiante) {
-        Estudiante existente = estudianteRepository.findByDNI(estudiante.getDNI());
+        Estudiante existente = estudianteRepository.findById(estudiante.getId()).orElse(null);
         if (existente != null) {
             return false;
         }
@@ -36,7 +36,7 @@ public class EstudianteService {
 
 
     public Estudiante obtenerEstudiantePorLibreta(int LU) {
-        return estudianteRepository.findByLibretaUniversitaria(LU);
+        return estudianteRepository.findByLU(LU);
     }
 
 

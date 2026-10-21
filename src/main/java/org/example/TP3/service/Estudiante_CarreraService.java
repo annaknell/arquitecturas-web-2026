@@ -32,13 +32,11 @@ public class Estudiante_CarreraService {
 
     
     @Transactional
-    public boolean matricularEstudiante(int estudianteDNI, int carreraId) {
-        Estudiante estudiante = estudianteRepository.findByDNI(estudianteDNI);
-        Carrera carrera = carreraRepository.findById(carreraId);
-        if (estudiante == null || carrera == null) {
-            return false;
-        }
-        if (estudiante_carreraRepository.findByEstudianteAndCarrera(estudianteDNI, carreraId) != null) {
+    public boolean matricularEstudiante(Long estudianteId, Long carreraId) {
+        Estudiante estudiante = estudianteRepository.findById(estudianteId).orElseThrow(() -> new RuntimeException("no existe estudiante con ese id."));
+        Carrera carrera = carreraRepository.findById(carreraId).orElseThrow(() -> new RuntimeException("no se encontró carrera con ese id."));
+
+        if (estudiante_carreraRepository.findByEstudianteAndCarrera(estudianteId, carreraId) != null) {
             return false;
         }
         Estudiante_Carrera nuevaInscripcion = new Estudiante_Carrera();
