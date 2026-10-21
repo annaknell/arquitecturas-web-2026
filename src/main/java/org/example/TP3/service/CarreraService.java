@@ -1,24 +1,24 @@
 package org.example.TP3.service;
 
-
+import org.example.TP3.dto.ConteoPorAnio;
 import org.example.TP3.dto.ReporteCarreraAnio;
 import org.example.TP3.entity.Carrera;
 import org.example.TP3.repository.CarreraRepository;
-import org.example.TP3.repository.Estudiante_CarreraRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class CarreraService {
 
     private CarreraRepository carreraRepository;
-    private Estudiante_CarreraRepository estudiante_carreraRepository;
 
-    public CarreraService(CarreraRepository carreraRepository, Estudiante_CarreraRepository estudiante_carreraRepository) {
+    public CarreraService(CarreraRepository carreraRepository) {
         this.carreraRepository = carreraRepository;
-        this.estudiante_carreraRepository = estudiante_carreraRepository;
     }
 
     @Transactional
@@ -35,19 +35,25 @@ public class CarreraService {
         return carreraRepository.findAllconInscriptosOrdernados();
     }
 
-    public ReporteCarreraAnio generarReporteCarreraAnio(int carreraId, int anio){
+    public List<ReporteCarreraAnio> generarReporteCarreras() {
+        List<ConteoPorAnio> inscriptos = carreraRepository.contarInscriptosPorCarreraYAnio();
+        List<ConteoPorAnio> egresados = carreraRepository.contarEgresadosPorCarreraYAnio();
 
-        Carrera carrera = carreraRepository.findById(carreraId);
-        if (carrera == null) {
-            return null;
+        Map<String, TreeMap<Integer, ReporteCarreraAnio>> reporte = new TreeMap<>();
+
+        for (ConteoPorAnio conteo : inscriptos) {
+            reporte.computeIfAbsent(conteo.getCarrera(), clave -> new TreeMap<>()).computeIfAbsent(conteo.getAnio(),
+                            anio -> new ReporteCarreraAnio(conteo.getCarrera(), anio, 0, 0)).setInscriptos(conteo.getCantidad());
         }
-        int inscriptos = estudiante_carreraRepository.countInscriptosByCarreraIdAndYear(carreraId, anio);
-        int egresados = estudiante_carreraRepository.countEgresadosByCarreraIdAndYear(carreraId, anio);
-        ReporteCarreraAnio reporte = new ReporteCarreraAnio();
-        reporte.setCarrera(carrera.getCarrera());
-        reporte.setAnio(anio);
-        reporte.setInscriptos(inscriptos);
-        reporte.setEgresados(egresados);
-        return reporte;
+        for (ConteoPorAnio conteo : egresados) {
+            reporte.computeIfAbsent(conteo.getCarrera(), clave -> new TreeMap<>()).computeIfAbsent(conteo.getAnio(),
+                            anio -> new ReporteCarreraAnio(conteo.getCarrera(), anio, 0, 0)).setEgresados(conteo.getCantidad());
+        }
+        List<ReporteCarreraAnio> resultado = new ArrayList<>();
+
+        for (TreeMap<Integer, ReporteCarreraAnio> reportesPorAnio : reporte.values()) {
+            resultado.addAll(reportesPorAnio.values());
+        }
+        return resultado;
     }
 }
