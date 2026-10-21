@@ -15,6 +15,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Embeddable
 public class EstudianteCarreraId implements Serializable {
 

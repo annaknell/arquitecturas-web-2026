@@ -17,10 +17,12 @@ public class Estudiante_Carrera {
     private EstudianteCarreraId id = new EstudianteCarreraId();
 
     @ManyToOne
+    @MapsId("idEstudiante")
     @JoinColumn(name = "id_estudiante")
     private Estudiante estudiante;
 
     @ManyToOne
+    @MapsId("idCarrera")
     @JoinColumn(name = "id_carrera")
     private Carrera carrera;
 
