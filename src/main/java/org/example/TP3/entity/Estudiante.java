@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Estudiante {
     @Id
+    @Column(name = "dni")
     private Long id;
     @Column
     private String nombre;
