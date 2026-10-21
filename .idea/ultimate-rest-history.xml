@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="UltimateRestHistory">
+    <items>
+      <historyItem>
+        <option name="timestamp" value="1791935880813" />
+        <request url="http//:localhost:3306/api/estudiante/71779527" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935879956" />
+        <request url="http//:localhost:3306/api/estudiante/71779527" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935832369" />
+        <request url="http//:localhost:8080/api/estudiante/71779527" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935814586" />
+        <request url="http//:localhost:8080/api/estudiante/71779527" />
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935476211" />
+        <request url="http//:localhost:8080/api/estudiante/71779527" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935293859" />
+        <request url="https//:localhost:8080/api/estudiante/71779527" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935292618" />
+        <request url="https//:localhost:8080/api/estudiante/71779527" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935243463" />
+        <request url="https//:localhost:8080/api/estudiante/;id" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+      <historyItem>
+        <option name="timestamp" value="1791935238911" />
+        <request url="https//:localhost:8080/api/estudiante" bodyType="none">
+          <bodyContent />
+        </request>
+      </historyItem>
+    </items>
+  </component>
+</project>
