@@ -1,18 +1,51 @@
 package org.example.TP3.service;
 
 import org.example.TP3.entity.Estudiante;
+import org.example.TP3.repository.EstudianteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface EstudianteService {
+@Service
+public class EstudianteService {
 
-    boolean altaEstudiante(Estudiante estudiante);
+    @Autowired
+    private EstudianteRepository estudianteRepository;
 
-    List<Estudiante> listarEstudiantesOrdenadosPorEdad();
+    public EstudianteService(EstudianteRepository estudianteRepository) {
+        this.estudianteRepository = estudianteRepository;
+    }
 
-    Estudiante obtenerEstudiantePorLibreta(int LU);
 
-    List<Estudiante> listarEstudiantesPorGenero(String genero);
+    @Transactional
+    public boolean altaEstudiante(Estudiante estudiante) {
+        Estudiante existente = estudianteRepository.findByDNI(estudiante.getDNI());
+        if (existente != null) {
+            return false;
+        }
+        estudianteRepository.save(estudiante);
+        return true;
+    }
 
-    List<Estudiante> listarEstudiantesPorCarreraYCiudad(String nombreCarrera, String ciudad);
+
+    public List<Estudiante> listarEstudiantesOrdenadosPorEdad() {
+        return estudianteRepository.findAllOrderByEdad();
+    }
+
+
+    public Estudiante obtenerEstudiantePorLibreta(int LU) {
+        return estudianteRepository.findByLibretaUniversitaria(LU);
+    }
+
+
+    public List<Estudiante> listarEstudiantesPorGenero(String genero) {
+        return estudianteRepository.findAllByGenero(genero);
+    }
+
+
+    public List<Estudiante> listarEstudiantesPorCarreraYCiudad(String nombreCarrera, String ciudad) {
+        return estudianteRepository.findByCarreraAndCiudad(nombreCarrera,ciudad);
+    }
 }
