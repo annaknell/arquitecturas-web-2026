@@ -13,9 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Estudiante_Carrera {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @EmbeddedId
+    private EstudianteCarreraId id = new EstudianteCarreraId();
 
     @ManyToOne
     @JoinColumn(name = "id_estudiante")
@@ -32,4 +31,3 @@ public class Estudiante_Carrera {
     @Column
     private int antiguedad;
 }
-
